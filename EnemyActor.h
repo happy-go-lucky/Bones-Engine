@@ -6,6 +6,7 @@ class EnemyActor : public Actor
 {
 public:
 	EnemyActor(class Game* game);
+	~EnemyActor();
 	void ActorInput(const InputState keyState) override;
 	void SetVisible(bool visible);
 

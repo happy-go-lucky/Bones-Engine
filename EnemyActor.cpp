@@ -24,6 +24,13 @@ EnemyActor::EnemyActor(Game* game) :
 	Vector3 pos = GetPosition();
 }
 
+EnemyActor::~EnemyActor()
+{
+	delete meshComponent;
+	delete skeletalMeshComponent;
+	delete enemyMoveComponent;
+}
+
 void EnemyActor::ActorInput(InputState keyState) {
 	bool move = false;
 	enemyMoveComponent->SetMoveable(moveable);

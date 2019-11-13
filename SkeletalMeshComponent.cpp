@@ -16,6 +16,12 @@ SkeletalMeshComponent::SkeletalMeshComponent(Actor* owner)
 	{
 	}
 
+SkeletalMeshComponent::~SkeletalMeshComponent()
+{
+	delete skeleton;
+	delete animation;
+}
+
 void SkeletalMeshComponent::Draw(Shader* shader) 
 {
 	if (mesh)

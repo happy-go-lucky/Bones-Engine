@@ -6,6 +6,7 @@ class SkeletalMeshComponent : public MeshComponent {
 
 public: 
 	SkeletalMeshComponent(class Actor* owner);
+	~SkeletalMeshComponent();
 	// Draw this mesh component
 	void Draw(class Shader* shader) override;
 	

@@ -1,5 +1,15 @@
 #include "BoneTransform.h"
 
+BoneTransform::BoneTransform()
+{
+
+}
+
+BoneTransform::~BoneTransform()
+{
+
+}
+
 Matrix4 BoneTransform::ToMatrix() const 
 {
 	Matrix4 rot = Matrix4::CreateFromQuaternion(rotation);

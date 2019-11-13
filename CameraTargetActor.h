@@ -6,6 +6,7 @@ class CameraTargetActor : public Actor
 {
 public:
 	CameraTargetActor(class Game* game);
+	~CameraTargetActor();
 
 	void ActorInput(const InputState keyState) override;
 

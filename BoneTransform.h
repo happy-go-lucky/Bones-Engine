@@ -7,6 +7,9 @@ public:
 	Quaternion rotation;
 	Vector3 translation;
 	
+	BoneTransform();
+	~BoneTransform();
+
 	Matrix4 ToMatrix() const;
 	 
 	static BoneTransform Interpolate(const BoneTransform& a, const BoneTransform& b, float f);

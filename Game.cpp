@@ -168,6 +168,11 @@ void Game::UpdateGame()
 		pending->ComputeWorldTransform();
 		actors.emplace_back(pending);
 	}
+
+	for (int i = 0; i < pendingActors.size(); i++)
+	{
+		delete pendingActors[i];
+	}
 	pendingActors.clear();
 
 	std::vector<Actor*> deadActors;
@@ -226,6 +231,10 @@ void Game::LoadData(){
 	Actor* a = new Actor(this);
 	if (scene == 0) {
 		if (isReturning) {
+			for (int i = 0; i < enems.size(); i++)
+			{
+				//delete enems[i];
+			}
 			enems.clear();
 
 			int offsetX = 0;
@@ -293,6 +302,7 @@ void Game::LoadData(){
 					enemyActor->SetScale(50.f);
 					enemyActor->SetMoveable(true);
 				}
+
 				saved_enemies.clear();
 
 				//enemies.insert(enemies.end(), useEnemy.begin(), useEnemy.end());
@@ -595,9 +605,11 @@ void Game::CreatePointLights(Actor*& a, Vector3& pos, int z)
 }
 
 void Game::UnloadData(){
-	while (!actors.empty()){
-		delete actors.back();
+	for (int i = 0; i < actors.size(); i++)
+	{
+		delete actors[i];
 	}
+	actors.clear();
 
 	if (hud)
 	{
@@ -648,16 +660,23 @@ void Game::AddActor(Actor* actor){
 }
 
 void Game::RemoveActor(Actor* actor){
-	auto iter = std::find(pendingActors.begin(), pendingActors.end(), actor);
-	if (iter != pendingActors.end()){
-		std::iter_swap(iter, pendingActors.end() - 1);
-		pendingActors.pop_back();
+	vector<Actor*>::iterator itr;
+	for (itr = pendingActors.begin(); itr < pendingActors.end(); itr++)
+	{
+		if ((*itr) == actor)
+		{
+			pendingActors.erase(itr);
+			break;
+		}
 	}
 
-	iter = std::find(actors.begin(), actors.end(), actor);
-	if (iter != actors.end()){
-		std::iter_swap(iter, actors.end() - 1);
-		actors.pop_back();
+	for (itr = actors.begin(); itr < actors.end(); itr++)
+	{
+		if ((*itr) == actor)
+		{
+			actors.erase(itr);
+			break;
+		}
 	}
 }
 

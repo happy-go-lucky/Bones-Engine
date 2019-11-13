@@ -33,6 +33,11 @@ Room::Room(Game* game, int width, int height, int variance, int maxEnemies)
 Room::~Room()
 {
 	// dealloc stuff here. in case you use 'new' or 'malloc' or whatever
+	for (int i = 0; i < _enemies.size(); i++)
+	{
+		delete _enemies[i];
+	}
+	_enemies.clear();
 }
 
 bool Room::generate(bool lastDoor) {
@@ -89,7 +94,7 @@ bool Room::generate(bool lastDoor) {
 		int enemiesToGenerate = rand() % _maxEnemies + (0);
 		enemiesToGenerate += _diffInc;
 
-		class EnemyActor* enemyActor = new EnemyActor(game);
+		EnemyActor* enemyActor = new EnemyActor(game);
 		_enemies.assign(enemiesToGenerate, enemyActor);
 
 		vector<vector<int>> lastPlacements;

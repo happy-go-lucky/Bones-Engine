@@ -23,6 +23,14 @@ CameraTargetActor::CameraTargetActor(Game* game) :
 	cameraComponent->SnapToIdeal();
 }
 
+CameraTargetActor::~CameraTargetActor()
+{
+	delete moveComponent;
+	delete meshComponent;
+	delete cameraComponent;
+	delete skeletalMeshComponent;
+}
+
 void CameraTargetActor::ActorInput(InputState keyState) {
 	float verticalMove = 0.0f;
 	float horizontalMove = 0.0f;

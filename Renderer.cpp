@@ -173,10 +173,9 @@ void Renderer::RemoveSprite(SpriteComponent* sprite){
 void Renderer::AddMeshComp(MeshComponent* mesh){
 	if (mesh->GetIsSkeletal())
 	{
-		SkeletalMeshComponent* sk = static_cast<SkeletalMeshComponent*>(mesh);
-		skeletalMeshes.emplace_back(sk);
+		skeletalMeshes.emplace_back(static_cast<SkeletalMeshComponent*>(mesh));
 	} 
-	else 
+	else
 	{
 		meshComps.emplace_back(mesh);
 	}
@@ -185,14 +184,27 @@ void Renderer::AddMeshComp(MeshComponent* mesh){
 void Renderer::RemoveMeshComp(MeshComponent* mesh){
 	if (mesh->GetIsSkeletal())
 	{
-		SkeletalMeshComponent* sk = static_cast<SkeletalMeshComponent*>(mesh);
-		auto iter = std::find(skeletalMeshes.begin(), skeletalMeshes.end(), sk);
-		skeletalMeshes.erase(iter);
+		vector<SkeletalMeshComponent*>::iterator itr;
+		for (itr = skeletalMeshes.begin(); itr < skeletalMeshes.end(); itr++)
+		{
+			if ((*itr) == static_cast<SkeletalMeshComponent*>(mesh))
+			{
+				skeletalMeshes.erase(itr);
+				break;
+			}
+		}
 	}
 	else
 	{
-		auto iter = std::find(meshComps.begin(), meshComps.end(), mesh);
-		meshComps.erase(iter);
+		vector<MeshComponent*>::iterator itr;
+		for (itr = meshComps.begin(); itr < meshComps.end(); itr++)
+		{
+			if ((*itr) == mesh)
+			{
+				meshComps.erase(itr);
+				break;
+			}
+		}
 	}
 }
 
@@ -201,8 +213,15 @@ void Renderer::AddPointLight(PointLightComponent* light) {
 }
 
 void Renderer::RemovePointLight(PointLightComponent* light) {
-	auto iter = std::find(pointLights.begin(), pointLights.end(), light);
-	pointLights.erase(iter);
+	vector<PointLightComponent*>::iterator itr;
+	for (itr = pointLights.begin(); itr < pointLights.end(); itr++)
+	{
+		if ((*itr) == light)
+		{
+			pointLights.erase(itr);
+			break;
+		}
+	}
 }
 
 Texture* Renderer::GetTexture(const std::string& fileName){

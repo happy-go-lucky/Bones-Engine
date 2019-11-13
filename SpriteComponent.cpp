@@ -23,10 +23,7 @@ SpriteComponent::~SpriteComponent(){
 void SpriteComponent::Draw(Shader* shader){
 	if (texture){
 		// Scale the quad by the width/height of texture
-		Matrix4 scaleMat = Matrix4::CreateScale(
-			static_cast<float>(texWidth),
-			static_cast<float>(texHeight), 1.0f);
-		
+		Matrix4 scaleMat = Matrix4::CreateScale(texWidth, texHeight, 1.0f);
 		Matrix4 world = scaleMat * owner->GetWorldTransform();
 		
 		// Set world transform
@@ -40,7 +37,6 @@ void SpriteComponent::Draw(Shader* shader){
 
 void SpriteComponent::SetTexture(Texture* newTexture){
 	texture = newTexture;
-	// Set width/height
 	texWidth = texture->GetWidth();
 	texHeight = texture->GetHeight();
 }
